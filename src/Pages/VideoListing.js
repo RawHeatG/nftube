@@ -1,26 +1,10 @@
 import { VideoCard } from "../Components"
-
+import { useData } from "../Contexts"
 
 export function VideoListing() {
-    const data = [
-        { name: "Daft Punk", id: "V06bw_qyRFY"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"},
-        { name: "Tove-Lo", id: "SYM-RJwSGQ8"}
-    ];
+
+    const { data } = useData();
+    
     return(
         <div style={{ display: "flex", flexWrap: "wrap" }} >
             {data.map(video => (

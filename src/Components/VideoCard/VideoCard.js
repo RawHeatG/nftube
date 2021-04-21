@@ -1,19 +1,14 @@
+import { Link } from "react-router-dom";
+import "./VideoCard.css"
+
 export function VideoCard({video}){
-    console.log("video:", video)
-    const { id, name } = video;
-    console.log("Id:", id)
+    const { videoId, title } = video;
     return(
         <>
-            <div class="card">
-                <iframe 
-                    width="100%" height="100%" src={`https://www.youtube.com/embed/${id}`} 
-                    title="YouTube video player" 
-                    frameBorder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowFullScreen="allowfullscreen">
-                </iframe>
-                <h2 class="card-heading">{name}</h2>
-            </div>
+            <Link to={`/watch/${videoId}`}><div class="video-card" >
+                <img src={`http://img.youtube.com/vi/${videoId}/maxresdefault.jpg`} alt={videoId}></img>
+                <h2 class="card-heading">{title}</h2>
+            </div></Link>
             
         </>
     )

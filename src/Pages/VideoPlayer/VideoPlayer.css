@@ -1,1 +1,28 @@
 
+.video-player{
+    margin: 1rem;
+}
+
+.video {
+
+}
+
+.uploaded-by {
+    display: flex;
+    justify-content:space-between;
+    margin: 0 2rem;
+}
+
+.engagements {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 2rem;
+}
+
+.description {
+    margin: 0 4rem;
+}
+
+.inline {
+    display: flex;
+}

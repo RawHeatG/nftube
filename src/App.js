@@ -1,12 +1,13 @@
 import { VideoListing, VideoPlayer } from "./Pages";
 import { Routes, Route, Link } from "react-router-dom";
+import "./styles.css";
 
 function App() {
   return (
     <div className="App">
       
       <div class="navbar">
-        <h1>NFTube</h1>
+      <Link to="/" className="link"><h1>NFTube</h1></Link>
         <ul class="nav-menu">
           <li><Link to="/">Videos</Link></li>
         </ul>

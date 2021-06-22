@@ -1,6 +1,7 @@
 import { VideoCard } from "../../Components";
 import { useEffect, useState } from "react";
 import { Navbar, Sidebar } from "../../Components";
+import "./VideoListing.css";
 import axios from "axios";
 
 export function VideoListing() {
@@ -12,20 +13,24 @@ export function VideoListing() {
       );
       setData(response.data.data);
     })();
-  });
-  return !data ? (
-    <div>
-      <h1>Loading....</h1>
-    </div>
-  ) : (
+  }, []);
+  return (
     <div>
       <Navbar />
       <Sidebar />
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {data.map((video) => (
-          <VideoCard video={video} />
-        ))}
-      </div>
+      {!data ? (
+        <div className="canvas">
+          <h1>Loading....</h1>
+        </div>
+      ) : (
+        <div className="canvas">
+          <div className="video-listing-contianer">
+            {data.map((video) => (
+              <VideoCard key={video._id} video={video} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

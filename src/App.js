@@ -5,13 +5,11 @@ import "./index.css";
 function App() {
   return (
     <div className="App">
-      <div className="canvas">
-        <Routes>
-          <Route path="/" element={<VideoListing />} />
-          <Route path="/watch/:videoId" element={<VideoPlayer />} />
-          <Route path="/playlists" element={<Playlists />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<VideoListing />} />
+        <Route path="/watch/:videoId" element={<VideoPlayer />} />
+        <Route path="/playlists" element={<Playlists />} />
+      </Routes>
     </div>
   );
 }

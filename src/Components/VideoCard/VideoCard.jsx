@@ -5,8 +5,8 @@ export function VideoCard({ video }) {
   const { videoId, title } = video;
   return (
     <div>
-      <Link class="link" to={`/watch/${videoId}`}>
-        <div class="video-card">
+      <Link className="link" to={`/watch/${videoId}`}>
+        <div className="video-card">
           <img
             src={`http://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
             alt={videoId}

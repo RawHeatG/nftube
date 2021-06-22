@@ -26,13 +26,13 @@ export function VideoPlayer() {
         </div>
         <h1>{title}</h1>
         <div className="engagements">
-          <div class="inline">
+          <div classname="inline">
             <p>Views: {views}</p>
             <p>Likes: {likes}</p>
           </div>
           <div>
             <button
-              class="btn btn-secondary"
+              classname="btn btn-secondary"
               onClick={() =>
                 dispatch({
                   type: "REMOVE_FROM_PLAYLIST",
@@ -43,7 +43,7 @@ export function VideoPlayer() {
               Dislike
             </button>
             <button
-              class="btn btn-secondary"
+              classname="btn btn-secondary"
               onClick={() =>
                 dispatch({
                   type: "ADD_TO_PLAYLIST",
@@ -54,7 +54,7 @@ export function VideoPlayer() {
               Like
             </button>
             <button
-              class="btn btn-tertiary"
+              classname="btn btn-tertiary"
               onClick={() =>
                 dispatch({
                   type: "ADD_TO_PLAYLIST",
@@ -71,7 +71,7 @@ export function VideoPlayer() {
             <h2>{uploadedBy}</h2>
             <p>{subscribers} Subscribers</p>
           </div>
-          <button class="btn btn-primary">Subscribe</button>
+          <button classname="btn btn-primary">Subscribe</button>
         </div>
 
         <div className="description">

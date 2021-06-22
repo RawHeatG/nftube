@@ -1,0 +1,23 @@
+.navbar {
+  height: 10vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.logo {
+  margin-left: 4rem;
+}
+
+.logo span {
+  color: var(--background);
+}
+
+.nav-right {
+  margin-right: 1rem;
+}
+
+.nav-menu .MuiSvgIcon-root {
+  font-size: 3rem;
+}

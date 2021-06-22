@@ -1,5 +1,6 @@
-import { VideoCard } from "../Components";
+import { VideoCard } from "../../Components";
 import { useEffect, useState } from "react";
+import { Navbar, Sidebar } from "../../Components";
 import axios from "axios";
 
 export function VideoListing() {
@@ -17,10 +18,14 @@ export function VideoListing() {
       <h1>Loading....</h1>
     </div>
   ) : (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
-      {data.map((video) => (
-        <VideoCard video={video} />
-      ))}
+    <div>
+      <Navbar />
+      <Sidebar />
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {data.map((video) => (
+          <VideoCard video={video} />
+        ))}
+      </div>
     </div>
   );
 }

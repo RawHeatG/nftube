@@ -64,7 +64,7 @@ export function VideoPlayer() {
                 >
                   Like
                 </ThumbUpIcon>
-                <WatchLaterOutlinedIcon
+                <WatchLaterIcon
                   onClick={() =>
                     dispatch({
                       type: "ADD_TO_PLAYLIST",
@@ -73,7 +73,7 @@ export function VideoPlayer() {
                   }
                 >
                   Watch Later
-                </WatchLaterOutlinedIcon>
+                </WatchLaterIcon>
               </div>
             </div>
 

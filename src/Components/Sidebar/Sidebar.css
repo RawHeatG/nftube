@@ -1,6 +1,6 @@
 .sidebar {
   position: fixed;
-  top: 10vh;
+  top: 8vh;
   left: 0;
   height: 90vh;
   width: 20vw;
@@ -28,4 +28,8 @@
 .sidebar-item:hover .MuiSvgIcon-root {
   transform: rotate(360deg);
   color: var(--primary-color);
+}
+
+.sidebar-item:last-child {
+  border: none;
 }

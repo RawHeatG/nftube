@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
       ] = `Bearer ${currentUser?.token}`)
     : delete axios.defaults.headers.common["Authorization"];
 
-  const setUserandNavigate = (response) => {
+  const setUserAndNavigate = (response) => {
     const user = response.data.data;
     localStorage?.setItem("nftubeLogin", JSON.stringify(user));
     setCurrentUser(user);
@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
     try {
       const user = { username: username, password: password };
       const response = await axios.post(`${API_URL}/login`, { user });
-      response.data.success ? setUserandNavigate(response) : setAuthError(true);
+      response.data.success ? setUserAndNavigate(response) : setAuthError(true);
     } catch (error) {
       console.error("Error occured during login", error);
       setAuthError(true);
@@ -50,7 +50,7 @@ export function AuthProvider({ children }) {
         password: password,
       };
       const response = await axios.post(`${API_URL}/signup`, { user });
-      response.data.success ? setUserandNavigate(response) : setAuthError(true);
+      response.data.success ? setUserAndNavigate(response) : setAuthError(true);
     } catch (error) {
       console.error("Error occured during signup", error);
       setAuthError(true);

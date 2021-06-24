@@ -1,6 +1,5 @@
-import { VideoCard } from "../../Components";
 import { useEffect, useState } from "react";
-import { Navbar, Sidebar, Loader } from "../../Components";
+import { Navbar, Sidebar, Loader, VideoCard } from "../../Components";
 import "./VideoListing.css";
 import axios from "axios";
 

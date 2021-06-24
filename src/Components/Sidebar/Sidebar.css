@@ -2,8 +2,8 @@
   position: fixed;
   top: 8vh;
   left: 0;
-  height: 90vh;
-  width: 20vw;
+  height: 100vh;
+  width: 18vw;
   background: var(--background);
   border-right: 0.25rem solid var(--border);
 }

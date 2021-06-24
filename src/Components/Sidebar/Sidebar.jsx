@@ -19,11 +19,14 @@ export function Sidebar() {
         <WhatshotRoundedIcon />
         Trending
       </div>
-      <div onClick={() => navigate("/")} className="sidebar-item">
+      <div
+        onClick={() => navigate("/playlist/watchLater")}
+        className="sidebar-item"
+      >
         <WatchLaterIcon />
         Watch Later
       </div>
-      <div onClick={() => navigate("/playlist")} className="sidebar-item">
+      <div onClick={() => navigate("/playlist/liked")} className="sidebar-item">
         <ThumbUpRoundedIcon />
         Liked Videos
       </div>

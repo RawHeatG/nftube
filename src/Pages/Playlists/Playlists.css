@@ -1,3 +1,7 @@
 .playlists {
-    color: white;
+  color: white;
+}
+
+.playlist-items {
+  display: flex;
 }

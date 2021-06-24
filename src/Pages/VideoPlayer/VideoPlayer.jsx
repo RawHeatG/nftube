@@ -4,8 +4,6 @@ import { useData } from "../../Contexts";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
 import WatchLaterIcon from "@material-ui/icons/WatchLater";
-import WatchLaterOutlinedIcon from "@material-ui/icons/WatchLaterOutlined";
-import PlaylistPlayRoundedIcon from "@material-ui/icons/PlaylistPlayRounded";
 import "./VideoPlayer.css";
 
 export function VideoPlayer() {
@@ -13,8 +11,8 @@ export function VideoPlayer() {
 
   const { data, dispatch, playlists } = useData();
   console.log(playlists);
-  const { title, description, uploadedBy, likes, views, subscribers } =
-    data.find((item) => item.videoId === videoId);
+  const video = data.find((item) => item.videoId === videoId);
+  const { title, description, uploadedBy, likes, views, subscribers } = video;
   return (
     <div>
       <Navbar />
@@ -48,19 +46,20 @@ export function VideoPlayer() {
                   onClick={() =>
                     dispatch({
                       type: "REMOVE_FROM_PLAYLIST",
-                      payload: { playlistId: "liked", videoId: videoId },
+                      payload: { playlistId: "liked", video: video },
                     })
                   }
                 >
                   Dislike
                 </ThumbUpOutlinedIcon>
                 <ThumbUpIcon
-                  onClick={() =>
+                  onClick={() => {
+                    console.log("Clicked", videoId);
                     dispatch({
                       type: "ADD_TO_PLAYLIST",
-                      payload: { playlistId: "liked", videoId: videoId },
-                    })
-                  }
+                      payload: { playlistId: "liked", video: video },
+                    });
+                  }}
                 >
                   Like
                 </ThumbUpIcon>
@@ -68,7 +67,7 @@ export function VideoPlayer() {
                   onClick={() =>
                     dispatch({
                       type: "ADD_TO_PLAYLIST",
-                      payload: { playlistId: "watched", videoId: videoId },
+                      payload: { playlistId: "watchLater", video: video },
                     })
                   }
                 >

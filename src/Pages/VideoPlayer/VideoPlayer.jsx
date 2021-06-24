@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Navbar, Sidebar } from "../../Components";
+import { Navbar, Sidebar, Loader } from "../../Components";
 import { useData } from "../../Contexts";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
@@ -21,7 +21,7 @@ export function VideoPlayer() {
       <Sidebar />
       {!data ? (
         <div className="canvas">
-          <h1>Loading....</h1>
+          <Loader />
         </div>
       ) : (
         <div className="canvas">

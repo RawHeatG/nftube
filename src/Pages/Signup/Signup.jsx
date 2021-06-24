@@ -1,5 +1,6 @@
 import { useAuth } from "../../Contexts";
 import { useState, useEffect } from "react";
+import { Navbar, Sidebar } from "../../Components";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 
@@ -53,40 +54,44 @@ export function Signup() {
   }, [password]);
 
   return (
-    <div className="login">
-      <div className="form">
-        <div className="form-wrapper">
-          <h1>NFT Baazar</h1>
-          <input
-            placeholder="Name"
-            onChange={(event) => setName(event.target.value)}
-          />
-          <input
-            placeholder="Username"
-            onChange={(event) => setUsername(event.target.value)}
-          />
-          <input
-            style={{ ...emailStyle }}
-            placeholder="Email"
-            type="email"
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <input
-            style={{ ...passwordStyle }}
-            type="password"
-            placeholder="Password*"
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <small>*Password should be greater than 6 characters</small>
-          <button className="btn btn-primary" onClick={signupHandler}>
-            Sign Up
-          </button>
-          <p>
-            Already have an accont?{" "}
-            <Link className="link" to="/login">
-              <span>Log In</span>
-            </Link>
-          </p>
+    <div>
+      <Navbar />
+      <Sidebar />
+      <div className="login">
+        <div className="form">
+          <div className="form-wrapper">
+            <h1>NFT Baazar</h1>
+            <input
+              placeholder="Name"
+              onChange={(event) => setName(event.target.value)}
+            />
+            <input
+              placeholder="Username"
+              onChange={(event) => setUsername(event.target.value)}
+            />
+            <input
+              style={{ ...emailStyle }}
+              placeholder="Email"
+              type="email"
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <input
+              style={{ ...passwordStyle }}
+              type="password"
+              placeholder="Password*"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <small>*Password should be greater than 6 characters</small>
+            <button className="btn btn-primary" onClick={signupHandler}>
+              Sign Up
+            </button>
+            <p>
+              Already have an accont?{" "}
+              <Link className="link" to="/login">
+                <span>Log In</span>
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

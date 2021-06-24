@@ -1,6 +1,6 @@
 import { VideoCard } from "../../Components";
 import { useEffect, useState } from "react";
-import { Navbar, Sidebar } from "../../Components";
+import { Navbar, Sidebar, Loader } from "../../Components";
 import "./VideoListing.css";
 import axios from "axios";
 
@@ -20,7 +20,7 @@ export function VideoListing() {
       <Sidebar />
       {!data ? (
         <div className="canvas">
-          <h1>Loading....</h1>
+          <Loader />
         </div>
       ) : (
         <div className="canvas">

@@ -11,7 +11,7 @@ export function DataProvider({ children }) {
   useEffect(() => {
     (async function () {
       try {
-        const response = await axios(`${API_URL}/videos`);
+        const response = await axios(`${API_URL}/video`);
         console.log(response);
         if (response.data.success) {
           setData(response.data.data);

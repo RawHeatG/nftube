@@ -15,7 +15,7 @@ export function Navbar() {
       <div className="nav-right">
         <ul className="nav-menu">
           <li>
-            <Link to="/">
+            <Link to="/login">
               <PersonRoundedIcon />
             </Link>
           </li>

@@ -1,13 +1,41 @@
 .form {
-  display: flex;
+  didplay: flex;
   align-items: center;
   justify-content: center;
 }
 
 .login {
-  width: 100vw;
-  height: 80vh;
+  position: fixed;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+}
+
+.form-wrapper {
+  margin: 3rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+}
+
+.form-wrapper input {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  border: 2px solid var(--border);
+  transition: 200ms ease;
+}
+
+.form-wrapper input:hover {
+  background-color: white;
+}
+
+.form-wrapper button {
+  margin: 1rem;
+}
+
+.form-wrapper span {
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 1.5rem;
 }

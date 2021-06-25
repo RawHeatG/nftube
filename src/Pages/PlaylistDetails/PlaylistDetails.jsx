@@ -6,6 +6,7 @@ import "./PlaylistDetails.css";
 export function PlaylistDetails() {
   const { data, playlists } = useData();
   const { playlistId } = useParams();
+  console.log(playlistId);
   const playlist = playlists.find((playlist) => playlist.id === playlistId);
   console.log(playlist);
   return (

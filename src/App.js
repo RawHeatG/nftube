@@ -6,6 +6,7 @@ import {
   Login,
   Signup,
 } from "./Pages";
+import { PrivateRoute } from "./utils";
 import { Routes, Route } from "react-router-dom";
 import "./index.css";
 
@@ -15,8 +16,11 @@ function App() {
       <Routes>
         <Route path="/" element={<VideoListing />} />
         <Route path="/watch/:videoId" element={<VideoPlayer />} />
-        <Route path="/playlist" element={<Playlists />} />
-        <Route path="/playlist/:playlistId" element={<PlaylistDetails />} />
+        <PrivateRoute path="/playlist" element={<Playlists />} />
+        <PrivateRoute
+          path="/playlist/:playlistId"
+          element={<PlaylistDetails />}
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>

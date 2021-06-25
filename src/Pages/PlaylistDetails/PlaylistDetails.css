@@ -1,0 +1,4 @@
+.playlist-details {
+  display: flex;
+  flex-wrap: wrap;
+}

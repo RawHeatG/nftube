@@ -3,6 +3,7 @@ import WhatshotRoundedIcon from "@material-ui/icons/WhatshotRounded";
 import WatchLaterIcon from "@material-ui/icons/WatchLater";
 import ThumbUpRoundedIcon from "@material-ui/icons/ThumbUpRounded";
 import PlaylistPlayRoundedIcon from "@material-ui/icons/PlaylistPlayRounded";
+import RestoreRoundedIcon from "@material-ui/icons/RestoreRounded";
 import { useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 
@@ -29,6 +30,13 @@ export function Sidebar() {
       <div onClick={() => navigate("/playlist/liked")} className="sidebar-item">
         <ThumbUpRoundedIcon />
         Liked Videos
+      </div>
+      <div
+        onClick={() => navigate("/playlist/history")}
+        className="sidebar-item"
+      >
+        <RestoreRoundedIcon />
+        History
       </div>
       <div onClick={() => navigate("/playlist")} className="sidebar-item">
         <PlaylistPlayRoundedIcon />

@@ -18,16 +18,18 @@ export function PlaylistDetails() {
         </div>
       ) : (
         <div className="canvas">
-          <h1>{playlist.name}</h1>
-          {playlist.videos.length === 0 ? (
-            <h2>No Videos added to this playlist yet</h2>
-          ) : (
-            <div>
-              {playlist.videos.map((video) => (
-                <VideoCard key={video.videoId} video={video} />
-              ))}
-            </div>
-          )}
+          <h1 className="text-large">{playlist.name}</h1>
+          <div>
+            {playlist.videos.length === 0 ? (
+              <h2>No Videos added to this playlist yet</h2>
+            ) : (
+              <div className="playlist-details">
+                {playlist.videos.map((video) => (
+                  <VideoCard key={video.videoId} video={video} />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

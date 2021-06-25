@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import { Navbar, Sidebar, Loader } from "../../Components";
 import { useData } from "../../Contexts";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
 import WatchLaterIcon from "@material-ui/icons/WatchLater";
 import "./VideoPlayer.css";
 
@@ -13,6 +13,30 @@ export function VideoPlayer() {
   console.log(playlists);
   const video = data.find((item) => item.videoId === videoId);
   const { title, description, uploadedBy, likes, views, subscribers } = video;
+  const isVideoInPlaylist = (playlistId, videoId) => {
+    return playlists
+      .find((list) => list.id === playlistId)
+      .videos.find((video) => video.videoId === videoId)
+      ? true
+      : false;
+  };
+
+  const addToHistory = (video) => {
+    isVideoInPlaylist("history", video.videoId) &&
+      dispatch({
+        type: "REMOVE_FROM_PLAYLIST",
+        payload: { playlistId: "history", video: video },
+      });
+    dispatch({
+      type: "ADD_TO_PLAYLIST",
+      payload: { playlistId: "history", video: video },
+    });
+  };
+
+  useEffect(() => {
+    addToHistory(video);
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -42,37 +66,50 @@ export function VideoPlayer() {
                 <div>{likes} likes</div>
               </div>
               <div className="engagements-right">
-                <ThumbUpOutlinedIcon
-                  onClick={() =>
-                    dispatch({
-                      type: "REMOVE_FROM_PLAYLIST",
-                      payload: { playlistId: "liked", video: video },
-                    })
-                  }
-                >
-                  Dislike
-                </ThumbUpOutlinedIcon>
-                <ThumbUpIcon
-                  onClick={() => {
-                    console.log("Clicked", videoId);
-                    dispatch({
-                      type: "ADD_TO_PLAYLIST",
-                      payload: { playlistId: "liked", video: video },
-                    });
-                  }}
-                >
-                  Like
-                </ThumbUpIcon>
-                <WatchLaterIcon
-                  onClick={() =>
-                    dispatch({
-                      type: "ADD_TO_PLAYLIST",
-                      payload: { playlistId: "watchLater", video: video },
-                    })
-                  }
-                >
-                  Watch Later
-                </WatchLaterIcon>
+                {console.log(isVideoInPlaylist("liked", videoId))}
+                {isVideoInPlaylist("liked", videoId) ? (
+                  <ThumbUpIcon
+                    className="engagements-right-selected"
+                    onClick={() => {
+                      console.log("Clicked", videoId);
+                      dispatch({
+                        type: "REMOVE_FROM_PLAYLIST",
+                        payload: { playlistId: "liked", video: video },
+                      });
+                    }}
+                  ></ThumbUpIcon>
+                ) : (
+                  <ThumbUpIcon
+                    onClick={() => {
+                      console.log("Clicked", videoId);
+                      dispatch({
+                        type: "ADD_TO_PLAYLIST",
+                        payload: { playlistId: "liked", video: video },
+                      });
+                    }}
+                  ></ThumbUpIcon>
+                )}
+
+                {isVideoInPlaylist("watchLater", videoId) ? (
+                  <WatchLaterIcon
+                    className="engagements-right-selected"
+                    onClick={() =>
+                      dispatch({
+                        type: "REMOVE_FROM_PLAYLIST",
+                        payload: { playlistId: "watchLater", video: video },
+                      })
+                    }
+                  ></WatchLaterIcon>
+                ) : (
+                  <WatchLaterIcon
+                    onClick={() =>
+                      dispatch({
+                        type: "ADD_TO_PLAYLIST",
+                        payload: { playlistId: "watchLater", video: video },
+                      })
+                    }
+                  ></WatchLaterIcon>
+                )}
               </div>
             </div>
 

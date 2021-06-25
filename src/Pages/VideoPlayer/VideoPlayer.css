@@ -44,6 +44,10 @@
   color: var(--primary-color);
 }
 
+.engagements-right-selected {
+  color: var(--primary-color);
+}
+
 .description {
   margin: 0 4rem;
 }

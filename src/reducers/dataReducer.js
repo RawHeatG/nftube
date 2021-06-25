@@ -18,7 +18,7 @@ export const reducer = (state, { type, payload }) => {
             ? {
                 ...playlist,
                 videos: playlist.videos.filter(
-                  (item) => item !== payload.videoId
+                  (video) => video.videoId !== payload.video.videoId
                 ),
               }
             : playlist;

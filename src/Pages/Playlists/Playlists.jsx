@@ -18,7 +18,7 @@ export function Playlists() {
           <div className="playlists">
             {playlists.map((list) => (
               <div>
-                <h2>{list.name}</h2>
+                <h1 className="text-large">{list.name}</h1>
                 <div className="playlist-items">
                   {list.videos.map((video) => (
                     <VideoCard key={video._id} video={video} />

@@ -1,15 +1,28 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Navbar, Sidebar, Loader, VideoCard } from "../../Components";
-import { useData } from "../../Contexts";
+import { useAuth } from "../../Contexts";
+import { API_URL } from "../../utils";
 import "./Playlists.css";
 
 export function Playlists() {
-  const { data, playlists } = useData();
+  const [playlists, setPlaylists] = useState(null);
+  const { currentUser } = useAuth();
+  console.log(currentUser);
+  useEffect(() => {
+    (async function () {
+      const response = await axios(`${API_URL}/playlist/${currentUser.userId}`);
+      response.data.success
+        ? setPlaylists(response.data.data)
+        : console.error("Error while Loding playlists");
+    })();
+  }, []);
   console.log(playlists);
   return (
     <div>
       <Navbar />
       <Sidebar />
-      {!data ? (
+      {!playlists ? (
         <div className="canvas">
           <Loader />
         </div>

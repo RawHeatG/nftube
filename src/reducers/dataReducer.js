@@ -26,6 +26,12 @@ export const reducer = (state, { type, payload }) => {
       };
     }
 
+    case "INITIALIZE_PLAYLISTS": {
+      console.log({ state });
+      console.log("Playlist payload recieved: ", payload);
+      return { ...state, playlists: payload };
+    }
+
     default: {
       return state;
     }

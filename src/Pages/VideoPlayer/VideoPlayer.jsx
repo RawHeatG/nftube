@@ -1,41 +1,66 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { Navbar, Sidebar, Loader } from "../../Components";
-import { useData } from "../../Contexts";
+import { useData, useAuth } from "../../Contexts";
+import axios from "axios";
+import { API_URL } from "../../utils";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import WatchLaterIcon from "@material-ui/icons/WatchLater";
 import "./VideoPlayer.css";
 
 export function VideoPlayer() {
   const { videoId } = useParams();
+  const { currentUser } = useAuth();
 
   const { data, dispatch, playlists } = useData();
-  console.log(playlists);
   const video = data.find((item) => item.videoId === videoId);
   const { title, description, uploadedBy, likes, views, subscribers } = video;
+
+  console.log("Playlists:", playlists);
+
   const isVideoInPlaylist = (playlistId, videoId) => {
+    // const response = await axios(
+    //   `${API_URL}/playlist/${currentUser.userId}/${playlistId}/${video._id}`
+    // );
+    // console.log(response);
+    // if (response.data.success) {
+    //   return response.data.data;
+    // }
+    console.log("checking", playlistId);
+    console.log(
+      playlists
+        .find((list) => list.id === playlistId)
+        .videos.find((video) => video.videoId === videoId)
+    );
     return playlists
       .find((list) => list.id === playlistId)
-      .videos.find((video) => video.videoId === videoId)
-      ? true
-      : false;
+      .videos.find((video) => video.videoId === videoId);
   };
 
-  const addToHistory = (video) => {
-    isVideoInPlaylist("history", video.videoId) &&
-      dispatch({
-        type: "REMOVE_FROM_PLAYLIST",
-        payload: { playlistId: "history", video: video },
-      });
-    dispatch({
-      type: "ADD_TO_PLAYLIST",
-      payload: { playlistId: "history", video: video },
-    });
+  const updatePlaylistInDb = async (playlistId, video) => {
+    console.log("Update this vode in db", video._id, video.videoId);
+    const response = await axios.post(
+      `${API_URL}/playlist/${currentUser.userId}/${playlistId}`,
+      { _id: video._id }
+    );
+    console.log(response);
+    return response.data.success;
   };
 
+  const addToHistory = async (video) => {
+    if (!isVideoInPlaylist("history", videoId)) {
+      const response = await updatePlaylistInDb("history", video);
+      response
+        ? dispatch({
+            type: "ADD_TO_PLAYLIST",
+            payload: { playlistId: "history", video: video },
+          })
+        : console.error("Error while updating in DB");
+    }
+  };
   useEffect(() => {
     addToHistory(video);
-  }, []);
+  }, [videoId]);
 
   return (
     <div>
@@ -66,26 +91,31 @@ export function VideoPlayer() {
                 <div>{likes} likes</div>
               </div>
               <div className="engagements-right">
-                {console.log(isVideoInPlaylist("liked", videoId))}
+                {console.log(
+                  "Output of isVideosInPlailist",
+                  isVideoInPlaylist("liked", videoId)
+                )}
                 {isVideoInPlaylist("liked", videoId) ? (
                   <ThumbUpIcon
                     className="engagements-right-selected"
-                    onClick={() => {
-                      console.log("Clicked", videoId);
-                      dispatch({
-                        type: "REMOVE_FROM_PLAYLIST",
-                        payload: { playlistId: "liked", video: video },
-                      });
+                    onClick={async () => {
+                      const response = await updatePlaylistInDb("liked", video);
+                      response &&
+                        dispatch({
+                          type: "REMOVE_FROM_PLAYLIST",
+                          payload: { playlistId: "liked", video: video },
+                        });
                     }}
                   ></ThumbUpIcon>
                 ) : (
                   <ThumbUpIcon
-                    onClick={() => {
-                      console.log("Clicked", videoId);
-                      dispatch({
-                        type: "ADD_TO_PLAYLIST",
-                        payload: { playlistId: "liked", video: video },
-                      });
+                    onClick={async () => {
+                      const response = await updatePlaylistInDb("liked", video);
+                      response &&
+                        dispatch({
+                          type: "ADD_TO_PLAYLIST",
+                          payload: { playlistId: "liked", video: video },
+                        });
                     }}
                   ></ThumbUpIcon>
                 )}
@@ -93,21 +123,31 @@ export function VideoPlayer() {
                 {isVideoInPlaylist("watchLater", videoId) ? (
                   <WatchLaterIcon
                     className="engagements-right-selected"
-                    onClick={() =>
-                      dispatch({
-                        type: "REMOVE_FROM_PLAYLIST",
-                        payload: { playlistId: "watchLater", video: video },
-                      })
-                    }
+                    onClick={async () => {
+                      const response = await updatePlaylistInDb(
+                        "watchLater",
+                        video
+                      );
+                      response &&
+                        dispatch({
+                          type: "REMOVE_FROM_PLAYLIST",
+                          payload: { playlistId: "watchLater", video: video },
+                        });
+                    }}
                   ></WatchLaterIcon>
                 ) : (
                   <WatchLaterIcon
-                    onClick={() =>
-                      dispatch({
-                        type: "ADD_TO_PLAYLIST",
-                        payload: { playlistId: "watchLater", video: video },
-                      })
-                    }
+                    onClick={async () => {
+                      const response = await updatePlaylistInDb(
+                        "watchLater",
+                        video
+                      );
+                      response &&
+                        dispatch({
+                          type: "ADD_TO_PLAYLIST",
+                          payload: { playlistId: "watchLater", video: video },
+                        });
+                    }}
                   ></WatchLaterIcon>
                 )}
               </div>

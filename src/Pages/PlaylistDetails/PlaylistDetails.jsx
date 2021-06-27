@@ -1,19 +1,34 @@
+import { useEffect, useState } from "react";
 import { Navbar, Sidebar, Loader, VideoCard } from "../../Components";
 import { useParams } from "react-router-dom";
-import { useData } from "../../Contexts";
+import axios from "axios";
+import { API_URL } from "../../utils";
+import { useAuth } from "../../Contexts";
 import "./PlaylistDetails.css";
 
 export function PlaylistDetails() {
-  const { data, playlists } = useData();
+  const { currentUser } = useAuth();
   const { playlistId } = useParams();
-  console.log(playlistId);
-  const playlist = playlists.find((playlist) => playlist.id === playlistId);
-  console.log(playlist);
+  const [playlist, setPlaylist] = useState(null);
+
+  useEffect(() => {
+    setPlaylist(null);
+    (async function () {
+      const response = await axios(
+        `${API_URL}/playlist/${currentUser.userId}/${playlistId}`
+      );
+      console.log(response);
+      response.data.success
+        ? setPlaylist(response.data.data)
+        : console.error("Error while Loding playlists");
+    })();
+  }, [playlistId]);
+
   return (
     <div>
       <Navbar />
       <Sidebar />
-      {!data ? (
+      {!playlist ? (
         <div className="canvas">
           <Loader />
         </div>

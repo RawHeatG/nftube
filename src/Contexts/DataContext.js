@@ -1,4 +1,4 @@
-import { reducer, initialState } from "../reducers";
+import { dataReducer } from "../reducers";
 import {
   createContext,
   useContext,
@@ -9,6 +9,26 @@ import {
 import { getAllVideos } from "../services/dataServices";
 
 const DataContext = createContext();
+
+export const initialState = {
+  playlists: [
+    {
+      name: "Liked Videos",
+      id: "liked",
+      videos: [],
+    },
+    {
+      name: "Watch Later",
+      id: "watchLater",
+      videos: [],
+    },
+    {
+      name: "History",
+      id: "history",
+      videos: [],
+    },
+  ],
+};
 
 export function DataProvider({ children }) {
   const [data, setData] = useState();
@@ -27,7 +47,7 @@ export function DataProvider({ children }) {
     })();
   }, []);
 
-  const [{ playlists }, dispatch] = useReducer(reducer, initialState);
+  const [{ playlists }, dispatch] = useReducer(dataReducer, initialState);
 
   return (
     <DataContext.Provider value={{ data, dispatch, playlists }}>

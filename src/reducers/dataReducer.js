@@ -1,4 +1,6 @@
-export const reducer = (state, { type, payload }) => {
+import { initialState } from "../Contexts/DataContext";
+
+export const dataReducer = (state, { type, payload }) => {
   switch (type) {
     case "ADD_TO_PLAYLIST": {
       return {
@@ -10,6 +12,7 @@ export const reducer = (state, { type, payload }) => {
         }),
       };
     }
+
     case "REMOVE_FROM_PLAYLIST": {
       return {
         ...state,
@@ -27,38 +30,15 @@ export const reducer = (state, { type, payload }) => {
     }
 
     case "INITIALIZE_PLAYLISTS": {
-      console.log({ state });
-      console.log("Playlist payload recieved: ", payload);
       return { ...state, playlists: payload };
+    }
+
+    case "RESET_STATE": {
+      return initialState;
     }
 
     default: {
       return state;
     }
   }
-};
-
-export const initialState = {
-  playlists: [
-    {
-      name: "Liked Videos",
-      id: "liked",
-      videos: [],
-    },
-    {
-      name: "Watch Later",
-      id: "watchLater",
-      videos: [],
-    },
-    {
-      name: "History",
-      id: "history",
-      videos: [],
-    },
-    {
-      name: "",
-      id: "",
-      videos: [],
-    },
-  ],
 };

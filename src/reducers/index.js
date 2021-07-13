@@ -1,1 +1,1 @@
-export { reducer, initialState } from "./dataReducer";
+export { dataReducer } from "./dataReducer";

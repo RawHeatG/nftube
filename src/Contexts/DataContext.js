@@ -6,8 +6,7 @@ import {
   useState,
   useEffect,
 } from "react";
-import { API_URL } from "../utils";
-import axios from "axios";
+import { getAllVideos } from "../services/dataServices";
 
 const DataContext = createContext();
 
@@ -17,7 +16,7 @@ export function DataProvider({ children }) {
   useEffect(() => {
     (async function () {
       try {
-        const response = await axios(`${API_URL}/video`);
+        const response = await getAllVideos();
         console.log(response);
         if (response.data.success) {
           setData(response.data.data);

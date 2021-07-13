@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import { Navbar, Sidebar, Loader, VideoCard } from "../../Components";
 import { useData, useAuth } from "../../Contexts";
 import "./VideoListing.css";
-import axios from "axios";
-import { API_URL } from "../../utils";
+import { getAllPlaylist } from "../../services/dataServices";
 
 export function VideoListing() {
   const { currentUser } = useAuth();
@@ -12,9 +11,7 @@ export function VideoListing() {
   useEffect(() => {
     (async () => {
       if (currentUser) {
-        const response = await axios(
-          `${API_URL}/playlist/${currentUser.userId}`
-        );
+        const response = await getAllPlaylist(currentUser.userId);
         response.data.success
           ? dispatch({
               type: "INITIALIZE_PLAYLISTS",
@@ -23,7 +20,7 @@ export function VideoListing() {
           : console.error("Error occured while fetching playlists");
       }
     })();
-  }, [currentUser]);
+  }, [currentUser, dispatch]);
   console.log(data);
   return (
     <div>

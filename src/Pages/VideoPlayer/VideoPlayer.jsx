@@ -2,11 +2,10 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { Navbar, Sidebar, Loader } from "../../Components";
 import { useData, useAuth } from "../../Contexts";
-import axios from "axios";
-import { API_URL } from "../../utils";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import WatchLaterIcon from "@material-ui/icons/WatchLater";
 import "./VideoPlayer.css";
+import { updatePlaylist } from "../../services/dataServices";
 
 export function VideoPlayer() {
   const { videoId } = useParams();
@@ -19,14 +18,6 @@ export function VideoPlayer() {
   console.log("Playlists:", playlists);
 
   const isVideoInPlaylist = (playlistId, videoId) => {
-    // const response = await axios(
-    //   `${API_URL}/playlist/${currentUser.userId}/${playlistId}/${video._id}`
-    // );
-    // console.log(response);
-    // if (response.data.success) {
-    //   return response.data.data;
-    // }
-    console.log("checking", playlistId);
     console.log(
       playlists
         .find((list) => list.id === playlistId)
@@ -39,28 +30,37 @@ export function VideoPlayer() {
 
   const updatePlaylistInDb = async (playlistId, video) => {
     console.log("Update this vode in db", video._id, video.videoId);
-    const response = await axios.post(
-      `${API_URL}/playlist/${currentUser.userId}/${playlistId}`,
-      { _id: video._id }
+    const response = await updatePlaylist(
+      currentUser.userId,
+      playlistId,
+      video._id
     );
     console.log(response);
     return response.data.success;
   };
 
-  const addToHistory = async (video) => {
-    if (!isVideoInPlaylist("history", videoId)) {
-      const response = await updatePlaylistInDb("history", video);
-      response
-        ? dispatch({
-            type: "ADD_TO_PLAYLIST",
-            payload: { playlistId: "history", video: video },
-          })
-        : console.error("Error while updating in DB");
-    }
-  };
   useEffect(() => {
-    addToHistory(video);
-  }, [videoId]);
+    currentUser &&
+      (async function () {
+        if (
+          !playlists
+            .find((list) => list.id === "history")
+            .videos.find((video) => video.videoId === videoId)
+        ) {
+          const response = await updatePlaylist(
+            currentUser.userId,
+            "history",
+            video._id
+          );
+          response
+            ? dispatch({
+                type: "ADD_TO_PLAYLIST",
+                payload: { playlistId: "history", video: video },
+              })
+            : console.error("Error while updating in DB");
+        }
+      })();
+  }, [currentUser, dispatch, playlists, video, videoId]);
 
   return (
     <div>

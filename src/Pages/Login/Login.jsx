@@ -13,7 +13,7 @@ export function Login() {
   const { currentUser, loginUserWithCredentials, logoutUser } = useAuth();
 
   function validatePassword(password) {
-    const passwordRegex = /^[\w!@#\$%\^\&*\)\(+=._-]{6,}$/;
+    const passwordRegex = /^[\w!@#$%^&*)(+=._-]{6,}$/;
     return passwordRegex.test(password);
   }
 

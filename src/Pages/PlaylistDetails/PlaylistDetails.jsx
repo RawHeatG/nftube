@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { Navbar, Sidebar, Loader, VideoCard } from "../../Components";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-import { API_URL } from "../../utils";
 import { useAuth } from "../../Contexts";
 import "./PlaylistDetails.css";
+import { getPlaylistData } from "../../services/dataServices";
 
 export function PlaylistDetails() {
   const { currentUser } = useAuth();
@@ -14,15 +13,13 @@ export function PlaylistDetails() {
   useEffect(() => {
     setPlaylist(null);
     (async function () {
-      const response = await axios(
-        `${API_URL}/playlist/${currentUser.userId}/${playlistId}`
-      );
+      const response = await getPlaylistData(currentUser.userId, playlistId);
       console.log(response);
       response.data.success
         ? setPlaylist(response.data.data)
         : console.error("Error while Loding playlists");
     })();
-  }, [playlistId]);
+  }, [currentUser.userId, playlistId]);
 
   return (
     <div>

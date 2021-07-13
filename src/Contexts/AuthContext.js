@@ -2,7 +2,7 @@ import { createContext, useContext } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { API_URL } from "../utils";
+import { login, signup } from "../services/authServices";
 
 const AuthContext = createContext();
 
@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
   async function loginUserWithCredentials(username, password) {
     try {
       const user = { username: username, password: password };
-      const response = await axios.post(`${API_URL}/login`, { user });
+      const response = await login(user);
       response.data.success ? setUserAndNavigate(response) : setAuthError(true);
     } catch (error) {
       console.error("Error occured during login", error);
@@ -49,7 +49,7 @@ export function AuthProvider({ children }) {
         email: email,
         password: password,
       };
-      const response = await axios.post(`${API_URL}/signup`, { user });
+      const response = await signup(user);
       response.data.success ? setUserAndNavigate(response) : setAuthError(true);
     } catch (error) {
       console.error("Error occured during signup", error);

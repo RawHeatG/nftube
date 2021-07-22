@@ -1,0 +1,8 @@
+.playlists {
+  color: white;
+}
+
+.playlist-items {
+  display: flex;
+  flex-wrap: wrap;
+}

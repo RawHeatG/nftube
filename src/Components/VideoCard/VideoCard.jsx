@@ -1,0 +1,19 @@
+import { Link } from "react-router-dom";
+import "./VideoCard.css";
+
+export function VideoCard({ video }) {
+  const { videoId, title } = video;
+  return (
+    <div>
+      <Link className="link" to={`/watch/${videoId}`}>
+        <div className="video-card">
+          <img
+            src={`http://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+            alt={videoId}
+          />
+          <h2>{title}</h2>
+        </div>
+      </Link>
+    </div>
+  );
+}
